@@ -1,3 +1,5 @@
+using API.Mapper;
+using AutoMapper.Extensions.ExpressionMapping;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,6 +11,12 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<HowToChessDbContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddAutoMapper(mc =>
+{
+    mc.AddExpressionMapping();
+    mc.AddProfile(new MapperProfile());
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
