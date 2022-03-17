@@ -1,3 +1,4 @@
+using API.Extensions;
 using API.Mapper;
 using AutoMapper.Extensions.ExpressionMapping;
 using Business.Dtos;
@@ -80,5 +81,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+await app.UpdateDatabase();
 
 app.Run();
