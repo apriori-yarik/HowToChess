@@ -49,7 +49,7 @@ namespace DataAccess.Repositories
             return Mapper.Map<Dto>(entity);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public virtual async Task DeleteAsync(Guid id)
         {
             var entity = await Items
                 .AsNoTracking()

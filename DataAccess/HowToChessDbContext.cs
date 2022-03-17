@@ -26,6 +26,8 @@ namespace DataAccess
                 e.HasOne(x => x.Role)
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.RoleId);
+
+                e.HasQueryFilter(x => x.IsDeleted == false);
             });
         }
     }
