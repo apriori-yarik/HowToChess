@@ -1,6 +1,10 @@
 using API.Mapper;
 using AutoMapper.Extensions.ExpressionMapping;
+using Business.Services;
+using Business.Services.Interfaces;
 using DataAccess;
+using DataAccess.Repositories;
+using DataAccess.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +21,10 @@ builder.Services.AddAutoMapper(mc =>
     mc.AddExpressionMapping();
     mc.AddProfile(new MapperProfile());
 });
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

@@ -28,6 +28,9 @@ namespace DataAccess
                 .HasForeignKey(x => x.RoleId);
 
                 e.HasQueryFilter(x => x.IsDeleted == false);
+
+                e.HasIndex(x => x.Email)
+                .IsUnique();
             });
         }
     }
