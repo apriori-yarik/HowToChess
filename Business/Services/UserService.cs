@@ -1,4 +1,4 @@
-﻿using Business.Dtos;
+﻿using Business.Dtos.User;
 using Business.Services.Interfaces;
 using DataAccess.Repositories.Interfaces;
 using System;
