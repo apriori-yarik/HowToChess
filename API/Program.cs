@@ -4,9 +4,11 @@ using AutoMapper.Extensions.ExpressionMapping;
 using Business.Dtos;
 using Business.Services;
 using Business.Services.Interfaces;
+using Business.Validators;
 using DataAccess;
 using DataAccess.Repositories;
 using DataAccess.Repositories.Interfaces;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -16,7 +18,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserDtoValidator>());
 
 var jwtSettings = builder.Configuration.GetSection("JWT").Get<JWTSettingsDto>();
 

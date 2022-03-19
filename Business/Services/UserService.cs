@@ -42,6 +42,8 @@ namespace Business.Services
 
         public async Task UpdateAsync(UserDtoWithIdWithoutRole userDto)
         {
+            userDto.Password = BCrypt.Net.BCrypt.HashPassword(userDto.Password);
+
             await _repository.UpdateAsync(userDto);
         }
     }
