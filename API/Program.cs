@@ -40,6 +40,14 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin",
+         policy => policy.RequireRole("Admin"));
+    options.AddPolicy("User",
+        policy => policy.RequireRole("User"));
+});
+
 builder.Services.AddSingleton(new JWTSettingsDto()
 {
     Key = jwtSettings.Key,

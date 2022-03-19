@@ -16,6 +16,11 @@ namespace DataAccess.Repositories
         {
         }
 
+        protected override IQueryable<User> OnBeforeGetAll()
+        {
+            return Items.Include(x => x.Role);
+        }
+
         public override async Task DeleteAsync(Guid id)
         {
             var user = await Items.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);

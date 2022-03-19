@@ -17,6 +17,6 @@ namespace Business.Services.Interfaces
 
         Task DeleteAsync(Guid id);
 
-        Task UpdateAsync(UserDtoWithId userDto);
+        Task UpdateAsync(UserDtoWithIdWithoutRole userDto);
     }
 }

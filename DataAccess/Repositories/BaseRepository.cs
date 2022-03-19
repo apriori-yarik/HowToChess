@@ -26,12 +26,17 @@ namespace DataAccess.Repositories
             Mapper = mapper;
         }
 
+        protected virtual IQueryable<Entity> OnBeforeGetAll()
+        {
+            return Items;
+        }
+
         public async Task<Dto> GetByIdAsync<Dto>(Guid id)
-            => Mapper.Map<Dto>(await Items.FirstOrDefaultAsync(x => x.Id == id));
+            => Mapper.Map<Dto>(await OnBeforeGetAll().FirstOrDefaultAsync(x => x.Id == id));
 
         public async Task<List<Dto>> GetAllAsync<Dto>(Expression<Func<Dto, bool>> filter = null)
         {
-            var query = Items.AsQueryable();
+            var query = OnBeforeGetAll().AsQueryable();
 
             if (filter != null)
                 query = query.Where(Mapper.Map<Expression<Func<Entity, bool>>>(filter));

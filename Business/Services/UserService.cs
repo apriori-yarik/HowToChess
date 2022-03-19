@@ -40,7 +40,7 @@ namespace Business.Services
             return user;
         }
 
-        public async Task UpdateAsync(UserDtoWithId userDto)
+        public async Task UpdateAsync(UserDtoWithIdWithoutRole userDto)
         {
             await _repository.UpdateAsync(userDto);
         }

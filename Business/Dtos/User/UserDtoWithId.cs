@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Business.Dtos.Role;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,7 @@ namespace Business.Dtos.User
         public string Email { get; set; }
         public string Password { get; set; }
         public Guid RoleId { get; set; }
+        public RoleDtoWithId Role { get; set; }
+
     }
 }

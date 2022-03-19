@@ -66,6 +66,7 @@ namespace Business.Services
             return new List<Claim>
             {
                 new Claim("id", user.Id.ToString()),
+                new Claim(ClaimTypes.Role, user.Role.Name),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTime.Now.ToString()),
