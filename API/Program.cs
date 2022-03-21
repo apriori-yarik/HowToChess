@@ -67,8 +67,6 @@ builder.Services.AddAutoMapper(mc =>
     mc.AddProfile(new MapperProfile());
 });
 
-builder.Services.AddSingleton(new Stockfish.NET.Stockfish(@"D:\stockfish_20090216_x64.exe"));
-
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();

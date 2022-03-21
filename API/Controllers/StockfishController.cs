@@ -1,4 +1,5 @@
-﻿using Business.Services.Interfaces;
+﻿using Business.Dtos;
+using Business.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -15,9 +16,9 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public IActionResult NextMove([FromBody] string fen)
+        public IActionResult NextMove(StockfishPositionDto position)
         {        
-            string move = _service.NextMove(fen);
+            string move = _service.NextMove(position.FEN);
 
             return Ok(move);
         }

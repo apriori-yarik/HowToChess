@@ -9,21 +9,15 @@ namespace Business.Services
 {
     public class StockfishService : IStockfishService
     {
-        private readonly Stockfish.NET.Stockfish _stockfish;
-
-        public StockfishService(Stockfish.NET.Stockfish stockfish)
-        {
-            _stockfish = stockfish;
-        }
-
         public string NextMove(string fen)
         {
-            _stockfish.Depth = 15;
-            _stockfish.SkillLevel = 100;
+            var stockfish = new Stockfish.NET.Stockfish(@"D:\stockfish_20090216_x64.exe");
+            stockfish.Depth = 15;
+            stockfish.SkillLevel = 30;
 
-            _stockfish.SetFenPosition(fen);
+            stockfish.SetFenPosition(fen);
 
-            var move = _stockfish.GetBestMove();
+            var move = stockfish.GetBestMove();
 
             return move.ToString();
         }
