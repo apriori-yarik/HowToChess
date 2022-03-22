@@ -25,5 +25,7 @@ namespace DataAccess.Entities
         public Guid RoleId { get; set; }
 
         public Role Role { get; set; }
+
+        public ICollection<UserPosition> UserPositions { get; set; }
     }
 }
