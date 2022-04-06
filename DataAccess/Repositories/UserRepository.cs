@@ -31,6 +31,5 @@ namespace DataAccess.Repositories
 
             await DbContext.SaveChangesAsync();
         }
-
     }
 }
