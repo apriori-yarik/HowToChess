@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataAccess.Entities;
 using DataAccess.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,11 @@ namespace DataAccess.Repositories
     {
         public PositionRepository(HowToChessDbContext context, IMapper mapper) : base(context, mapper)
         {
+        }
+
+        protected override IQueryable<Position> OnBeforeGetAll()
+        {
+            return Items.Include(x => x.UserPositions).AsNoTracking();
         }
     }
 }

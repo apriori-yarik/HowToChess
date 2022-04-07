@@ -14,6 +14,7 @@ namespace API.Mapper
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<User, UserDtoWithId>().ReverseMap();
             CreateMap<User, UserDtoWithIdWithoutRole>().ReverseMap();
+            CreateMap<User, UserDtoWithIdWithCollections>().ReverseMap();
 
             CreateMap<Role, RoleDtoWithId>().ReverseMap();
 
@@ -23,7 +24,6 @@ namespace API.Mapper
             CreateMap<UserPosition, UserPositionPositionDto>().ReverseMap();
             CreateMap<UserPosition, UserPositionUserDto>().ReverseMap();
             CreateMap<UserPosition, UserPositionUserDto>().ReverseMap();
-
         }
     }
 }

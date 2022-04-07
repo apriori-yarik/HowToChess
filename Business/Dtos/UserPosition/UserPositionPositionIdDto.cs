@@ -9,5 +9,6 @@ namespace Business.Dtos.UserPosition
     public class UserPositionPositionIdDto
     {
         public Guid PositionId { get; set; }
+        public Guid UserId { get; set; }
     }
 }
