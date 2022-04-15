@@ -4,7 +4,7 @@ using AutoMapper.Extensions.ExpressionMapping;
 using Business.Dtos;
 using Business.Services;
 using Business.Services.Interfaces;
-using Business.Validators;
+using Business.Validators.User;
 using DataAccess;
 using DataAccess.Repositories;
 using DataAccess.Repositories.Interfaces;

@@ -73,7 +73,7 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        [Route("position")]
+        [Route("position")] 
         public async Task<IActionResult> AddPositionAsync(UserPositionPositionIdDto dto)
         {
             var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == "id")?.Value);
