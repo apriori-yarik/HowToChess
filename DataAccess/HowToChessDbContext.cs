@@ -32,6 +32,19 @@ namespace DataAccess
                 e.HasIndex(x => x.Email)
                 .IsUnique();
             });
+
+            modelBuilder.Entity<UserPosition>(e =>
+            {
+                e.HasKey(x => new { x.UserId, x.PositionId });
+
+                e.HasOne(x => x.User)
+                .WithMany(x => x.UserPositions)
+                .HasForeignKey(x => x.UserId);
+
+                e.HasOne(x => x.Position)
+                .WithMany(x => x.UserPositions)
+                .HasForeignKey(x => x.PositionId);
+            });
         }
     }
 }

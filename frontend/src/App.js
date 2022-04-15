@@ -1,59 +1,83 @@
-import React, { Component } from 'react';
+import React, { useState } from "react";
+import "./App.css";
+import Chessboard from "chessboardjsx";
 
-export default class App extends Component {
-    static displayName = App.name;
+const Chess = require("chess.js");
 
-    constructor(props) {
-        super(props);
-        this.state = { forecasts: [], loading: true };
-    }
+const App = () => {
+    const [chess] = useState(
+        new Chess("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+    );
 
-    componentDidMount() {
-        this.populateWeatherData();
-    }
+    const [fen, setFen] = useState(chess.fen());
 
-    static renderForecastsTable(forecasts) {
-        return (
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temp. (C)</th>
-                        <th>Temp. (F)</th>
-                        <th>Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {forecasts.map(forecast =>
-                        <tr key={forecast.date}>
-                            <td>{forecast.date}</td>
-                            <td>{forecast.temperatureC}</td>
-                            <td>{forecast.temperatureF}</td>
-                            <td>{forecast.summary}</td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        );
-    }
+    const handleMove = (move) => {
+        if (chess.move(move)) {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            myHeaders.append("Access", "*/*");
 
-    render() {
-        let contents = this.state.loading
-            ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
-            : App.renderForecastsTable(this.state.forecasts);
+            var raw = chess.fen();
 
-        return (
-            <div>
-                <h1 id="tabelLabel" >Weather forecast</h1>
-                <p>This component demonstrates fetching data from the server.</p>
-                {contents}
-            </div>
-        );
-    }
+            // var requestOptions = {
+            //   method: "POST",
+            //   headers: myHeaders,
+            //   body: raw,
+            // };
 
-    async populateWeatherData() {
-        const response = await fetch('weatherforecast');
-        const data = await response.json();
-        this.setState({ forecasts: data, loading: false });
-    }
-}
+            // fetch("https://chess.apurn.com/nextmove", requestOptions)
+            //   .then((response) => response.text())
+            //   .then((result) => {
+            //     chess.move(result, { sloppy: true });
+            //     setFen(chess.fen());
+            //   })
+            //   .catch((error) => console.log("error", error));
+
+            var requestOptions = {
+                method: "POST",
+                headers: myHeaders,
+                body: `"${raw}"`,
+            };
+
+            fetch("/api/Stockfish", requestOptions)
+                .then((response) => response.text())
+                .then((result) => {
+                    chess.move(result, { sloppy: true });
+                    setFen(chess.fen());
+                })
+                .catch((error) => console.log("error", error));
+
+            // setTimeout(() => {
+            //   const moves = chess.moves();
+            //   console.log(moves);
+
+            //   if (moves.length > 0) {
+            //     //const computerMove = moves[Math.floor(Math.random() * moves.length)];
+            //     chess.move("d7d5", { sloppy: true });
+            //     setFen(chess.fen());
+            //   }
+            // }, 300);
+
+            setFen(chess.fen());
+        }
+    };
+
+    return (
+        <div className="flex-center">
+            <h1>Random chess</h1>
+            <Chessboard
+                width={400}
+                position={fen}
+                onDrop={(move) =>
+                    handleMove({
+                        from: move.sourceSquare,
+                        to: move.targetSquare,
+                        promotion: "q",
+                    })
+                }
+            />
+        </div>
+    );
+};
+
+export default App;

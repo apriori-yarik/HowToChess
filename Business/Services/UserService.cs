@@ -1,4 +1,6 @@
-﻿using Business.Dtos.User;
+﻿using Business.Dtos.Position;
+using Business.Dtos.User;
+using Business.Dtos.UserPosition;
 using Business.Services.Interfaces;
 using DataAccess.Repositories.Interfaces;
 using System;
@@ -12,10 +14,24 @@ namespace Business.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _repository;
+        private readonly IPositionRepository _positionRepository;
 
-        public UserService(IUserRepository repository)
+        public UserService(IUserRepository repository, IPositionRepository positionRepository)
         {
             _repository = repository;
+            _positionRepository = positionRepository;
+        }
+
+        public async Task AddPositionAsync(UserDtoWithIdWithCollections userDto, UserPositionPositionIdDto userPositionDto)
+        {
+            var position = await _positionRepository.GetByIdAsync<PositionDtoWithId>(userPositionDto.PositionId);
+
+            userDto.UserPositions.Add(new UserPositionPositionDto()
+            {
+                Position = position
+            });
+
+            await _repository.UpdateAsync(userDto);
         }
 
         public async Task CreateAsync(UserDto userDto)
@@ -28,15 +44,15 @@ namespace Business.Services
             await _repository.DeleteAsync(id);
         }
 
-        public async Task<List<UserDtoWithId>> GetAllAsync()
+        public async Task<List<UserDtoWithIdWithCollections>> GetAllAsync()
         {
-            var users = await _repository.GetAllAsync<UserDtoWithId>();
+            var users = await _repository.GetAllAsync<UserDtoWithIdWithCollections>();
             return users;
         }
 
-        public async Task<UserDtoWithId> GetAsync(Guid id)
+        public async Task<UserDtoWithIdWithCollections> GetAsync(Guid id)
         {
-            var user = await _repository.GetByIdAsync<UserDtoWithId>(id);
+            var user = await _repository.GetByIdAsync<UserDtoWithIdWithCollections>(id);
             return user;
         }
 

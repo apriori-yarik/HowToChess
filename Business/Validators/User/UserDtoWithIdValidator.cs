@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Business.Validators
+namespace Business.Validators.User
 {
-    public class UserDtoWithIdWithoutRoleValidator : AbstractValidator<UserDtoWithIdWithoutRole>
+    public class UserDtoValidator : AbstractValidator<UserDto>
     {
-        public UserDtoWithIdWithoutRoleValidator()
+        public UserDtoValidator()
         {
             RuleFor(x => x.Password).Matches("(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*[!@#$%^&*]).+").WithMessage("Invalid password");
             RuleFor(x => x.Email).EmailAddress();

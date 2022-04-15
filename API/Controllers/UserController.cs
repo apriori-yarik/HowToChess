@@ -1,4 +1,5 @@
 ﻿using Business.Dtos.User;
+using Business.Dtos.UserPosition;
 using Business.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("/api/[controller]")]
-    [Authorize]
+    [Authorize(Policy = "User")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _service;
@@ -67,6 +68,20 @@ namespace API.Controllers
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
             await _service.DeleteAsync(id);
+
+            return NoContent();
+        }
+
+        [HttpPut]
+        [Route("position")] 
+        public async Task<IActionResult> AddPositionAsync(UserPositionPositionIdDto dto)
+        {
+            var userId = Guid.Parse(User.Claims.FirstOrDefault(c => c.Type == "id")?.Value);
+
+            var user = await _service.GetAsync(userId);
+            dto.UserId = user.Id;
+
+            await _service.AddPositionAsync(user, dto);
 
             return NoContent();
         }

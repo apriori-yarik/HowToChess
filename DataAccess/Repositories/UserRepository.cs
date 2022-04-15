@@ -18,7 +18,7 @@ namespace DataAccess.Repositories
 
         protected override IQueryable<User> OnBeforeGetAll()
         {
-            return Items.Include(x => x.Role);
+            return Items.Include(x => x.Role).Include(x => x.UserPositions).AsNoTracking();
         }
 
         public override async Task DeleteAsync(Guid id)
@@ -31,6 +31,5 @@ namespace DataAccess.Repositories
 
             await DbContext.SaveChangesAsync();
         }
-
     }
 }
