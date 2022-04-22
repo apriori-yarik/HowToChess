@@ -33,10 +33,14 @@ const App = () => {
             //   })
             //   .catch((error) => console.log("error", error));
 
+            var body = {
+                fen: raw
+            };
+
             var requestOptions = {
                 method: "POST",
                 headers: myHeaders,
-                body: `"${raw}"`,
+                body: JSON.stringify(body)
             };
 
             fetch("/api/Stockfish", requestOptions)
