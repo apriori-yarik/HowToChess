@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Business.Dtos.Position;
+using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,14 +8,18 @@ using System.Threading.Tasks;
 
 namespace Business.Validators.Position
 {
-    public class PositionDtoWithIdValidator
+    public class PositionDtoWithIdValidator : AbstractValidator<PositionDtoWithId>
     {
-        RuleFor(x => x.FEN).NotEmpty();
+        public PositionDtoWithIdValidator()
+        {
+            RuleFor(x => x.FEN).NotEmpty();
 
-        RuleFor(x => x.Name).NotEmpty();
+            RuleFor(x => x.Name).NotEmpty();
 
-        RuleFor(x => x.Description).NotEmpty();
+            RuleFor(x => x.Description).NotEmpty();
 
-        RuleFor(x => x.Solution).NotEmpty();
+            RuleFor(x => x.Solution).NotEmpty();
+        }
+        
     }
 }
