@@ -16,8 +16,10 @@ namespace DataAccess
         }
 
         public DbSet<User> Users { get; set; }
-
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Position> Positions { get; set; }
+        public DbSet<UserPosition> UserPositions { get; set; }
+        public DbSet<Game> Games { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -26,8 +28,6 @@ namespace DataAccess
                 e.HasOne(x => x.Role)
                 .WithMany(x => x.Users)
                 .HasForeignKey(x => x.RoleId);
-
-                e.HasQueryFilter(x => x.IsDeleted == false);
 
                 e.HasIndex(x => x.Email)
                 .IsUnique();
@@ -44,6 +44,13 @@ namespace DataAccess
                 e.HasOne(x => x.Position)
                 .WithMany(x => x.UserPositions)
                 .HasForeignKey(x => x.PositionId);
+            });
+
+            modelBuilder.Entity<Game>(e =>
+            {
+                e.HasOne(x => x.User)
+                .WithMany(x => x.Games)
+                .HasForeignKey(x => x.UserId);
             });
         }
     }
