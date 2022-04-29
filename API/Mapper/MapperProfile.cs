@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Business.Dtos.Game;
 using Business.Dtos.Position;
 using Business.Dtos.Role;
 using Business.Dtos.User;
@@ -24,6 +25,10 @@ namespace API.Mapper
             CreateMap<UserPosition, UserPositionPositionDto>().ReverseMap();
             CreateMap<UserPosition, UserPositionUserDto>().ReverseMap();
             CreateMap<UserPosition, UserPositionUserDto>().ReverseMap();
+
+            CreateMap<Game, GameDto>().ReverseMap();
+            CreateMap<Game, GameDtoWithId>().ReverseMap();
+            CreateMap<Game, GameDtoWithIdWithNavigations>().ReverseMap();
         }
     }
 }

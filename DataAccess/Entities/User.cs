@@ -20,12 +20,15 @@ namespace DataAccess.Entities
         [Required]
         public string Password { get; set; }
 
-        public bool IsDeleted { get; set; }
+        [Required]
+        public int Rating { get; set; }
 
         public Guid RoleId { get; set; }
 
         public Role Role { get; set; }
 
+
         public ICollection<UserPosition> UserPositions { get; set; }
+        public ICollection<Game> Games { get; set; }
     }
 }

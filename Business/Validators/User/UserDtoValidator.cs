@@ -13,7 +13,12 @@ namespace Business.Validators.User
         public UserDtoValidator()
         {
             RuleFor(x => x.Password).Matches("(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*[!@#$%^&*]).+").WithMessage("Invalid password");
+
             RuleFor(x => x.Email).EmailAddress();
+
+            RuleFor(x => x.FullName).NotEmpty();
+
+            RuleFor(x => x.Rating).NotEmpty();
         }
     }
 }

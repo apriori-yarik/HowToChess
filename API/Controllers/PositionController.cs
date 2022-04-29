@@ -58,6 +58,7 @@ namespace API.Controllers
             return NoContent();
         }
 
+        [Authorize(Policy = "Admin")]
         [HttpPost]
         public async Task<IActionResult> CreateAsync(PositionDto positionDto)
         {

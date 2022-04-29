@@ -20,16 +20,5 @@ namespace DataAccess.Repositories
         {
             return Items.Include(x => x.Role).Include(x => x.UserPositions).AsNoTracking();
         }
-
-        public override async Task DeleteAsync(Guid id)
-        {
-            var user = await Items.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-
-            user.IsDeleted = true;
-
-            Items.Update(user);
-
-            await DbContext.SaveChangesAsync();
-        }
     }
 }

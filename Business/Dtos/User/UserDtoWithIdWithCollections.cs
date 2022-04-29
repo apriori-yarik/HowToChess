@@ -14,6 +14,7 @@ namespace Business.Dtos.User
         public string FullName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
+        public int Rating { get; set; }
         public RoleDtoWithId Role { get; set; }
         public ICollection<UserPositionPositionDto> UserPositions { get; set; }
     }
